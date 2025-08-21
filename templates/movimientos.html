@@ -1,0 +1,59 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Movimientos</h3>
+<div class="card shadow-sm mb-4"><div class="card-body">
+  <form method="POST" class="row g-2">
+    <div class="col-sm-2">
+      <label class="form-label">Tipo</label>
+      <select name="tipo" class="form-select">
+        <option value="ingreso">Ingreso</option>
+        <option value="egreso">Egreso</option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      <label class="form-label">Método de pago</label>
+      <input type="text" name="metodo_pago" class="form-control" placeholder="Efectivo, Transferencia, Tarjeta" required>
+    </div>
+    <div class="col-sm-5">
+      <label class="form-label">Descripción</label>
+      <input type="text" name="descripcion" class="form-control" placeholder="Ej. Cobro servicio X / Pago proveedor" required>
+    </div>
+    <div class="col-sm-2">
+      <label class="form-label">Monto (₲)</label>
+      <input type="text" name="monto" class="form-control" placeholder="100000" required>
+    </div>
+    <div class="col-12 d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary">Registrar</button>
+    </div>
+  </form>
+</div></div>
+
+<div class="table-responsive">
+<table class="table table-striped align-middle">
+  <thead><tr>
+    <th>ID</th><th>Tipo</th><th>Método</th><th>Descripción</th><th>Monto</th><th>Fecha</th><th class="text-end">Acciones</th>
+  </tr></thead>
+  <tbody>
+  {% for r in registros %}
+    <tr>
+      <td>{{ r[0] }}</td>
+      <td class="{{ 'text-success' if r[1]=='ingreso' else 'text-danger' }}">{{ r[1]|capitalize }}</td>
+      <td>{{ r[3] }}</td>
+      <td>{{ r[2] }}</td>
+      <td>{{ r[4]|gs }}</td>
+      <td>{{ r[5] }}</td>
+      <td class="text-end">
+        <a href="{{ url_for('edit_movimiento', mid=r[0]) }}" class="btn btn-sm btn-outline-secondary">Editar</a>
+        <form method="POST" action="{{ url_for('delete_movimiento', mid=r[0]) }}" class="d-inline" onsubmit="return confirm('¿Eliminar movimiento?');">
+          <button type="submit" class="btn btn-sm btn-outline-danger">Borrar</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<a href="{{ url_for('dashboard') }}" class="btn btn-secondary mt-2">Volver</a>
+{% endblock %}

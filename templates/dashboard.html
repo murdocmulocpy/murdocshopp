@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-4">Dashboard</h3>
+<div class="row g-3">
+  <div class="col-md-4">
+    <div class="card stat-card"><div class="card-body">
+      <h6 class="card-subtitle mb-2 text-muted">Saldo actual</h6>
+      <h3 class="card-title">{{ saldo|gs }}</h3>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card stat-card"><div class="card-body">
+      <h6 class="card-subtitle mb-2 text-muted">Total ingresos</h6>
+      <h3 class="card-title text-success">{{ total_ingresos|gs }}</h3>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card stat-card"><div class="card-body">
+      <h6 class="card-subtitle mb-2 text-muted">Total egresos</h6>
+      <h3 class="card-title text-danger">{{ total_egresos|gs }}</h3>
+    </div></div>
+  </div>
+</div>
+<div class="mt-4">
+  <a href="{{ url_for('movimientos') }}" class="btn btn-success">Registrar / Ver movimientos</a>
+</div>
+{% endblock %}

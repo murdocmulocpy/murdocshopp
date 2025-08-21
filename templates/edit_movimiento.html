@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Editar movimiento #{{ mov[0] }}</h3>
+<div class="card shadow-sm"><div class="card-body">
+  <form method="POST" class="row g-2">
+    <div class="col-sm-2">
+      <label class="form-label">Tipo</label>
+      <select name="tipo" class="form-select">
+        <option value="ingreso" {% if mov[1]=='ingreso' %}selected{% endif %}>Ingreso</option>
+        <option value="egreso" {% if mov[1]=='egreso' %}selected{% endif %}>Egreso</option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      <label class="form-label">Método de pago</label>
+      <input type="text" name="metodo_pago" class="form-control" value="{{ mov[3] }}" required>
+    </div>
+    <div class="col-sm-5">
+      <label class="form-label">Descripción</label>
+      <input type="text" name="descripcion" class="form-control" value="{{ mov[2] }}" required>
+    </div>
+    <div class="col-sm-2">
+      <label class="form-label">Monto (₲)</label>
+      <input type="text" name="monto" class="form-control" value="{{ '%.2f'|format(mov[4]) }}" required>
+    </div>
+    <div class="col-12 d-flex justify-content-end">
+      <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    </div>
+  </form>
+</div></div>
+<a href="{{ url_for('movimientos') }}" class="btn btn-secondary mt-3">Volver</a>
+{% endblock %}
